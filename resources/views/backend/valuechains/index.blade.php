@@ -33,7 +33,7 @@
 
           <div class="col-12">
 
-            <a href="<?=route('categories.create')?>" class="btn btn-sm btn-success" data-title="Add Item "><span class="fa fa-plus"><span> Add Category</a>
+            <a href="<?=route('valuechains.create')?>" class="btn btn-sm btn-success" data-title="Add Item "><span class="fa fa-plus"><span> Add Seedling</a>
 
                                        
  </div>

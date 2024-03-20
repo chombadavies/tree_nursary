@@ -75,7 +75,7 @@
           <div class="col-xl-6 col-lg-6 icon-boxes d-flex flex-column align-items-stretch justify-content-center py-5 px-lg-5">
             <h3>Popular Coffee Varieties</h3>
 
-            @foreach ($coffee->valuechains as $variety)
+            @foreach ($coffee->valuechains->take(2) as $variety)
             <a href="{{route('valuechain.details',$variety->id)}}">
             <h4>{{$variety->name}} </h4>
           </a>

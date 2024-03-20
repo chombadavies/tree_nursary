@@ -66,7 +66,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tree"></i>
               <p>
-                Value Chains(Varieties)
+                Tree Seedlings
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -74,13 +74,39 @@
               <li class="nav-item">
                 <a href="{{route('valuechains.create')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Create Value Chain</p>
+                  <p>Create Tree Seedling</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{route('valuechains.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Value Chain List</p>
+                  <p>Tree Seedling List</p>
+                </a>
+              </li>
+            
+           
+            </ul>
+          </li>
+
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tree"></i>
+              <p>
+              Seedlings Variations
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('variations.create')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Create Variation</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('variations.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Varations List</p>
                 </a>
               </li>
             

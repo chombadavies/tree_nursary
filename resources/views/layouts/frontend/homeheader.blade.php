@@ -2,14 +2,27 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Green Trees Nursery</title>
-  <meta content="agrifi" name="agrifi">
-  <meta content="agrificsapp" name="agrificsapp">
-  <meta content="agrificsapp kalro" name="agrificsapp kalro">
-  <meta content="kalro" name="kalro">
+  <title>Coffee and Trees Nursery</title>
+
+  <meta name="keywords" content="coffee, tree nursery,coffee nursery,nursery, plants, trees, gardening">
+<meta name="description" content="Find high-quality coffee and a wide variety of trees at our nursery. Explore our selection today!">
 
   <!-- Favicons -->
+
+  <link href="{{asset('frontend/img/kctnfavicon.png')}}" rel="icon">
+
+  <style type="text/css">
+     
+    th, td { white-space: nowrap; }
   
+    .modal .modal-dialog {
+  max-width: 60%;
+  }
+ 
+  
+   </style>
+  
+   </style>
  
 
   <!-- Google Fonts -->
@@ -38,15 +51,15 @@
   <div id="topbar" class="d-flex align-items-center fixed-top">
     <div class="container d-flex justify-content-between">
       <div class="contact-info d-flex align-items-center">
-        <strong><i class="bi bi-envelope"></i> <a href="mailto:agrificsapp@kalro.org">agrificsapp@kalro.org</a></strong> <strong></strong><i class="bi bi-phone"></i> <a href="+254722206986">+254 722 206986</a> </strong>
+        <strong><i class="bi bi-envelope"></i> <a href="mailto:agrificsapp@kalro.org">mjmware@gmail.com</a></strong> <strong></strong><i class="bi bi-phone"></i> <a href="+254722206986">+254 727 000000</a> </strong>
       </div>
-      <div class="d-none d-lg-flex contact-info align-items-center ">
-        {{-- <a href="#" class="twitter"><i class="bi bi-twitter"></i></a> --}}
+      {{-- <div class="d-none d-lg-flex contact-info align-items-center ">
+      
 
         <div><a href="https://www.kaop.co.ke/" target="blank"><i class="fas fa-sun"></i> Climate Information</a></div>
       <div style="padding-left: 12px"><a href="https://amis.co.ke/" target="blank"><i class="bi bi-cart"></i> Market Information</a></div>
      
-      </div>
+      </div> --}}
     </div>
   </div>
 
@@ -57,7 +70,7 @@
 
       {{-- <h1 class="logo me-auto"><a href="{{route('home')}}"><img alt="logo" src="{{asset('frontend/img/agriFilogo.png')}}" > </a></h1> --}}
       <!-- Uncomment below if you prefer to use an image logo -->
-      <a href="{{route('home')}}" class="logo me-auto"><img src="{{asset('frontend/img/agrifi-csapp-logo.png')}}" alt="" class="" height="70"></a>
+      <a href="{{route('home')}}" class="logo me-auto"><img src="{{asset('frontend/img/kctn logo.jpeg')}}" alt="" class="" height="80"></a>
     
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>

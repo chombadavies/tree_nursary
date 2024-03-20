@@ -11,7 +11,8 @@
   
  <!-- ======= Footer ======= -->
  @include('layouts.frontend.footer')
-    
+ @stack('scripts')
+  
     </body>
     
     </html>

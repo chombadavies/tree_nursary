@@ -17,4 +17,11 @@ class ValueChain extends Model
     public function materials(){
         return $this->hasMany('App\Models\Material');
     }
+
+    public function variations()
+    {
+    
+        return $this->belongsToMany(Variation::class, 'variation_value_chain');
+        
+    }
 }

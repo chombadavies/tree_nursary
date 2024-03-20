@@ -49,7 +49,7 @@
                   </div>
                  
                   <div class="form-group col-md-6">
-                    <label for=""> Research Model Category</label>
+                    <label for=""> Category Image</label>
                     <input type="file" name="image" class="form-control" id="" @error('image') is-invalid @enderror required value="{{old('image')}}">
                     <span style="color: red" >{{$errors->first('image')}}</span>
                 

@@ -37,7 +37,7 @@ class MaterialsController extends Controller
     {
         // Validate the input
         $validatedData = $request->validate([
-            'pdf.*' => 'required|file|mimes:pdf|max:5120', // 5120 KB = 5 MB
+            'pdf.*' => 'required|file|mimes:pdf|max:5120000', // 5120 KB = 5 MB
             'valuechain_id' => 'required|integer', // Example additional validation
         ]);
     

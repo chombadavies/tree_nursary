@@ -6,6 +6,7 @@ use App\Http\Controllers\backend\AdminController;
 use App\Http\Controllers\backend\MaterialsController;
 use App\Http\Controllers\backend\CategoriesController;
 use App\Http\Controllers\backend\ValuechainsController;
+use App\Http\Controllers\backend\VariationsController;
 use App\Http\Controllers\frontend\IndexController;
 
 /*
@@ -28,6 +29,7 @@ Route::group(['prefix'=>'admin','middleware'=>['auth']],function(){
     Route::Resource('categories',CategoriesController::class);
     Route::Resource('valuechains',ValuechainsController::class);
     Route::Resource('materials',MaterialsController::class);
+    Route::Resource('variations',VariationsController::class);
     Route::any('fetch_categories',[CategoriesController::class,'fetchCategories'])->name('fetch.categories');
     Route::any('fetch_valuechains',[ValuechainsController::class,'fetchValuechains'])->name('fetch.valuechains');
 
@@ -38,4 +40,7 @@ Route::get('/', [IndexController::class,'index'])->name('home');
 Route::any('value_chains/{id}',[IndexController::class,'valueChains'])->name('valuechains');
 Route::any('valuechains_details/{id}',[IndexController::class,'valueChainDetails'])->name('valuechain.details');
 Route::any('contact_us',[IndexController::class,'contactUs'])->name('contact_us');
-Route::any('/feedback',[IndexController::class,'feedBack'])->name('feedback');
+Route::any('/feedback',[IndexController::class,'feedBack'])->name('feedback'); 
+Route::any('/category/valuechain/{id}',[IndexController::class,'cascadeVauechain']);
+Route::any('make_order',[IndexController::class,'makeOrder'])->name('order.make');
+Route::get('/clear_cache', [IndexController::class,'clearCache'])->name('cache_clear');

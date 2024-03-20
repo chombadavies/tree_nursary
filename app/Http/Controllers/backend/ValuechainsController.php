@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Variation;
 use Intervention\Image\Facades\Image;
 
 class ValuechainsController extends Controller
@@ -18,7 +19,7 @@ class ValuechainsController extends Controller
      */
     public function index()
     {
-        $data['page_title']="Categories";
+        $data['page_title']="Seedlings";
     // $valuechains= ValueChain::all();
     // dd($valuechains);
         
@@ -32,8 +33,9 @@ class ValuechainsController extends Controller
     {
         $data['page_title']="Categories";
         $categories= Category::all();
+        $variations=Variation::all();
         
-        return view('backend.valuechains.create',$data)->with(compact('categories'));
+        return view('backend.valuechains.create',$data)->with(compact('categories','variations'));
     }
 
     /**
@@ -81,15 +83,20 @@ class ValuechainsController extends Controller
             $desc_image ="";
             
         }
+      
 
-
-        $data=$request->all();
+        $data = $request->except('variation_id');
+        // $variation_id = $request->input('variation_id', []); 
+        // $data['variation_id'] = implode(',', $variation_id); 
+    
         $data['image']=$image;
         $data['details_image']=$desc_image;
+
        
-        $status=ValueChain::create($data);
+        $valueChain=ValueChain::create($data);
+        $valueChain->variations()->attach($request->input('variation_id', []));
      
-        if($status){
+        if($valueChain){
          
             return redirect()->route('valuechains.index')->with('success','Value Chain Added successfully');
         }else{
@@ -116,8 +123,9 @@ class ValuechainsController extends Controller
         $data['page_title']='Edit Value Chain';
         $categories=Category::all();
         $valuechain=ValueChain::findOrFail($id);
-        // dd($valuechain);
-        return view('backend.valuechains.edit',$data)->with(compact('categories','valuechain'));
+        $variations=Variation::all();
+       
+        return view('backend.valuechains.edit',$data)->with(compact('categories','valuechain','variations'));
     }
 
     /**
@@ -168,11 +176,34 @@ class ValuechainsController extends Controller
         }
 
 
-        $data=$request->all();
+        $data = $request->except('variation_id');
+
+        // $data['image'] = $image ?? $valueChain->image; // Assuming $image is set by your image handling code
+        // $data['details_image'] = $desc_image ?? $valueChain->details_image; 
+
         $data['image']=$image;
         $data['details_image']=$desc_image;
        
         $status=$valuechain->fill($data)->save();
+
+
+
+        $requestedVariations = $request->input('variation_id', []);
+
+        // Current variations attached to the value chain
+        $currentVariations = $valuechain->variations()->pluck('variations.id')->toArray();
+    
+        // Variations to detach (present in current but not in requested)
+        $toDetach = array_diff($currentVariations, $requestedVariations);
+        if (!empty($toDetach)) {
+            $valuechain->variations()->detach($toDetach);
+        }
+    
+        // Variations to attach (present in requested but not in current)
+        $toAttach = array_diff($requestedVariations, $currentVariations);
+        if (!empty($toAttach)) {
+            $valuechain->variations()->attach($toAttach);
+        }
      
         if($status){
          
@@ -216,20 +247,23 @@ class ValuechainsController extends Controller
            })
             ->addColumn('action', function ($model) {
                 $edit_url = route('valuechains.edit',$model->id);
-                $delete_url = route('valuechains.destroy',$model->id);
+                // $delete_url = route('valuechains.destroy',$model->id);
+
+            //     <li>
+            //     <form action="' . $delete_url . '" method="post" id="delete-form-' . $model->id . '">
+            //         ' . csrf_field() . '
+            //         ' . method_field('DELETE') . '
+            //         <a style="cursor:pointer;" href="#" class="delete-news-button" onclick="event.preventDefault(); document.getElementById(\'delete-form-' . $model->id . '\').submit();">Delete Value Chain</a>
+                   
+            //     </form>
+            // </li>
+               
              return '<div class="dropdown ">
         <button class="btn btn-pink btn btn-xs dropdown-toggle" type="button" data-toggle="dropdown">Action
         <span class="caret"></span></button>
         <ul class="dropdown-menu">
         <li><a style="cursor:pointer;" data-title="Edit" href="' . $edit_url . '">Edit Value Chain</a></li>
-        <li>
-        <form action="' . $delete_url . '" method="post" id="delete-form-' . $model->id . '">
-            ' . csrf_field() . '
-            ' . method_field('DELETE') . '
-            <a style="cursor:pointer;" href="#" class="delete-news-button" onclick="event.preventDefault(); document.getElementById(\'delete-form-' . $model->id . '\').submit();">Delete Value Chain</a>
-           
-        </form>
-    </li>
+     
         </ul>
         </div> ';
 

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Mail\ContactFormMail;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Artisan;
 
 class IndexController extends Controller
 {
@@ -23,7 +24,7 @@ class IndexController extends Controller
 
     public function valueChains($id){
       
-     $category=Category::findOrFail($id);
+        $category=Category::findOrFail($id);
  
         return view('frontend.pages.valuechains',compact('category'));
     }
@@ -31,8 +32,14 @@ class IndexController extends Controller
     public function valueChainDetails($id){
 
         $valuechain=ValueChain::findOrFail($id);
-  
-        return view('frontend.pages.valuechain_details',compact('valuechain'));
+        // dd($valuechain->variations);
+       
+        $categoryId=$valuechain->category->id;
+    $relatedValueChains = ValueChain::where('category_id', $categoryId)
+    ->where('id', '!=', $id) 
+    ->get();
+
+ return view('frontend.pages.valuechain_details',compact('valuechain','relatedValueChains'));
     }
 
     public function contactUs(){
@@ -99,4 +106,28 @@ class IndexController extends Controller
             return redirect()->back()->with('error', 'An error occurred while sending your message. Please try again later.');
         }
     }
+
+    public function cascadeVauechain($id){
+
+        $models = ValueChain::Where('category_id',$id)->get();
+
+        echo '<option value="" selected disabled>-select Seedling Variety-</option>';
+
+        foreach ($models as $item) {
+
+            echo '<option value="' . $item->id . '">' . $item->name . '</option>';
+        }
+    }
+
+    public function makeOrder(){
+        return view('frontend.pages.makeorder');
+    }
+public function clearCache(){
+
+    Artisan::call('cache:clear');
+    Artisan::call('config:clear');
+   
+    return 'Application/configuration cache cleared successfully.';
+}
+    
 }
